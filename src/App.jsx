@@ -142,6 +142,10 @@ function App() {
   );
 
   const handleSaveEdit = () => {
+    if (!editingTaskName.trim()) {
+      alert("Task name cannot be empty!");
+      return;
+    }
     const updatedTasks = [...taskList];
     updatedTasks[editingTaskIndex].task = editingTaskName;
     updatedTasks[editingTaskIndex].dueDate = editingTaskDueDate;
