@@ -51,7 +51,7 @@ function App() {
       setTaskList([...taskList, { task: taskName, completed: false, dateCreated: currentDate, dueDate: null }]);
     }
     setTaskName("");
-    setShowDueDateModal(true); 
+    setShowDueDateModal(true);
   };
 
   const completeTask = (index) => {
@@ -161,13 +161,20 @@ function App() {
     setShowDueDateModal(false);
   };
 
+  const handleDateTimeBlur = (e) => {
+    if (e.target.value) {
+      alert("Please use the date picker to select a date.");
+      e.target.value = ""; // Clear the invalid input
+    }
+  };
+
   return (
     <div className="App">
       <div>
-        <img src="/images/add.png"/>
-        <img className="search" src="/images/search.png"/>
-        <img className="logo" src="/images/logo.png"/>
-        <img className="lexmeet" src="/images/lexmeet.png"/>
+        <img src="/images/add.png" alt="Add" />
+        <img className="search" src="/images/search.png" alt="Search" />
+        <img className="logo" src="/images/logo.png" alt="Logo" />
+        <img className="lexmeet" src="/images/lexmeet.png" alt="Lexmeet" />
       </div>
       <div className="search-container">
         <input
@@ -236,12 +243,12 @@ function App() {
         <div className="modal-overlay">
           <div className="modal-content">
             {taskToDelete !== null ? (
-              <>
+              <div className="modal-content-delete">
                 <h4>Confirm Delete</h4>
                 <p>Are you sure you want to delete this task?</p>
                 <button onClick={confirmDelete}>Yes</button>
                 <button onClick={cancelDelete}>No</button>
-              </>
+              </div>
             ) : (
               editingTaskIndex !== null ? (
                 <>
@@ -252,10 +259,12 @@ function App() {
                       value={editingTaskName}
                       onChange={(e) => setEditingTaskName(e.target.value)}
                     />
-                    <label>Due Date:</label>
+                    <label>Due Date</label>
                     <DateTime
                       value={editingTaskDueDate}
                       onChange={(date) => setEditingTaskDueDate(date)}
+                      inputProps={{ readOnly: true }}  // Prevent text input
+                      onBlur={handleDateTimeBlur}     // Alert on invalid text input
                     />
                   </div>
                   <button onClick={handleSaveEdit}>Save</button>
@@ -265,12 +274,12 @@ function App() {
                   }}>Cancel</button>
                 </>
               ) : (
-                <>
+                <div className="modal-content-delete-all">
                   <h4>Confirm Delete All</h4>
                   <p>Are you sure you want to delete all {deleteAllType} tasks?</p>
                   <button onClick={deleteAllTasks}>Yes</button>
                   <button onClick={cancelDelete}>No</button>
-                </>
+                </div>
               )
             )}
           </div>
@@ -285,6 +294,8 @@ function App() {
             <DateTime
               value={dueDate}
               onChange={(date) => setDueDate(date)}
+              inputProps={{ readOnly: true }}  // Prevent text input
+              onBlur={handleDateTimeBlur}     // Alert on invalid text input
             />
             <button onClick={handleSaveDueDate}>Save</button>
             <button onClick={() => setShowDueDateModal(false)}>Cancel</button>
