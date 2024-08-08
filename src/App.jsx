@@ -164,7 +164,7 @@ function App() {
   const handleDateTimeBlur = (e) => {
     if (e.target.value) {
       alert("Please use the date picker to select a date.");
-      e.target.value = ""; // Clear the invalid input
+      e.target.value = ""; 
     }
   };
 
@@ -263,8 +263,8 @@ function App() {
                     <DateTime
                       value={editingTaskDueDate}
                       onChange={(date) => setEditingTaskDueDate(date)}
-                      inputProps={{ readOnly: true }}  // Prevent text input
-                      onBlur={handleDateTimeBlur}     // Alert on invalid text input
+                      inputProps={{ readOnly: true }} 
+                      onBlur={handleDateTimeBlur}    
                     />
                   </div>
                   <button onClick={handleSaveEdit}>Save</button>
@@ -294,8 +294,8 @@ function App() {
             <DateTime
               value={dueDate}
               onChange={(date) => setDueDate(date)}
-              inputProps={{ readOnly: true }}  // Prevent text input
-              onBlur={handleDateTimeBlur}     // Alert on invalid text input
+              inputProps={{ readOnly: true }}  
+              onBlur={handleDateTimeBlur}   
             />
             <button onClick={handleSaveDueDate}>Save</button>
             <button onClick={() => setShowDueDateModal(false)}>Cancel</button>
